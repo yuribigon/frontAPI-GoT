@@ -1,6 +1,5 @@
 import { Route } from "react-router";
 import { BrowserRouter, Routes } from "react-router-dom";
-import App from "../App";
 import CharactersPage from "../pages/CharactersPage";
 
 function AppRoutes(){

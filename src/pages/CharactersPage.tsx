@@ -1,11 +1,19 @@
-import React, { useEffect } from "react";
+import { Grid, Card, CardMedia, Typography, CardContent, CardActions, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ModalMui } from "../components/Modal";
+import Navbar from "../components/NavBar/NavBar";
 import { getAll } from "../store/models/characterSlice";
 import { RootState, useAppDispatch } from "../store/store";
 
 const CharactersPage: React.FC = () => {
   //estado inicial
   const { data } = useSelector((state: RootState) => state.charReducer);
+  const [open, setOpen] = useState(false)
+  
+  const handleOpen = () => {
+    setOpen(true);
+  }
 
   const dispatch = useAppDispatch();
 
@@ -16,25 +24,33 @@ const CharactersPage: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Navbar/>
       
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((item, index) => (
-              <tr key={index}>
-                <td>{item.fullName}</td>
-                <td>{item.image}</td>
-                <td>{item.imageUrl}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <Grid container spacing={2}>
+        {data &&
+              data.map((item) => (
+                <Grid item xs={6} md={3} gap={2}>
+                  <Card sx={{ maxWidth: 345 }}>
+                    <CardMedia
+                      sx={{ height: 140 }}
+                      image={item.imageUrl}
+                      title={item.fullName}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {item.firstName}
+                      </Typography>                    
+                    </CardContent>
+                    <CardActions>
+                      <Button onClick={handleOpen} size="small">Ver mais</Button>
+                      
+                      
+                    </CardActions>
+                  </Card>
+                  <ModalMui id={item.id} open={open} setModal={setOpen}/>
+                </Grid>
+              ))}
+      </Grid>
     </React.Fragment>
   );
 };
