@@ -2,7 +2,6 @@ import { Grid, Card, CardMedia, Typography, CardContent, CardActions, Button } f
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ModalMui } from "../components/Modal";
 import Navbar from "../components/NavBar/NavBar";
 import { getAll } from "../store/models/characterSlice";
 import { RootState, useAppDispatch } from "../store/store";
@@ -28,7 +27,11 @@ const CharactersPage: React.FC = () => {
     <React.Fragment>
       <Navbar/>
       
-      <Grid container spacing={2}>
+      <Grid container spacing={2}
+        sx={{
+          marginTop: 8,
+          
+        }} >
         {data &&
               data.map((item) => (
                 <Grid item xs={6} md={3} gap={2}>
@@ -47,7 +50,6 @@ const CharactersPage: React.FC = () => {
                       <Button onClick={()=>handleOpen(item.id)} size="small">Ver mais</Button>
                     </CardActions>
                   </Card>
-                  <ModalMui id={item.id} open={open} setModal={setOpen}/>
                 </Grid>
               ))}
       </Grid>

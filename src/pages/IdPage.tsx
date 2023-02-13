@@ -1,4 +1,4 @@
-import { Grid, Card, CardMedia, Typography, CardContent, CardActions, Button } from "@mui/material";
+import { Grid, Card, CardMedia, Typography, CardContent, CardActions, Button, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -28,9 +28,7 @@ const IdPage: React.FC = () => {
   console.log(id);
   
   //é o hook que inicializa uma funcao
-  useEffect(() => {  
-    dispatch(idChar(id));
-  }, [dispatch, id]);
+  
 
   useEffect(() => {  
     if(selectChar){
@@ -38,39 +36,40 @@ const IdPage: React.FC = () => {
     }    
   }, [selectChar]);
 
+  useEffect(() => {  
+    dispatch(idChar(id));
+  }, [dispatch, id]);
+
   console.log(character);
 
   return (
     <React.Fragment>
       <Navbar/>
-                    
-        <Typography variant="h1">
-        {character.title}
-        </Typography>
-      
-        {/* <Grid container spacing={2}>
-            {data &&
-                data.map((item) => (
-                    <Grid item xs={6} md={3} gap={2}>
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardMedia
-                        sx={{ height: 140 }}
-                        image={item.imageUrl}
-                        title={item.fullName}
+            <Container sx={{ padding: 10, display: "flex",alignItems: "center", justifyContent: "center" }}>
+                {<Card sx={{ maxWidth: 500, }}>
+                    <CardMedia
+                        sx={{ height: 500, width: 500 }}
+                        image={character.imageUrl}
+                        title={character.fullName}
                         />
-                        <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {item.firstName}
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" align="center"component="div">
+                            {character.fullName}<br/>
+                            
+                        </Typography>
+                        <Typography variant="body1">
+                            Família: {character.family}<br/>
+                            Primeiro nome: {character.firstName}<br/>
+                            Sobrenome: {character.lastName}<br/>
+                            Título: {character.title}
                         </Typography>                    
-                        </CardContent>
-                        <CardActions>
+                    </CardContent>
+                    <CardActions>
                         <Button onClick={()=>navigate('/')} size="small">Voltar</Button>
-                        </CardActions>
-                    </Card>
-                    </Grid>
-                ))}
-        </Grid> */}
-    </React.Fragment>
+                    </CardActions>
+                </Card>}
+            </Container>
+</React.Fragment>
   );
 };
 
