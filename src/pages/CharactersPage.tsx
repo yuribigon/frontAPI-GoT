@@ -1,6 +1,7 @@
 import { Grid, Card, CardMedia, Typography, CardContent, CardActions, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ModalMui } from "../components/Modal";
 import Navbar from "../components/NavBar/NavBar";
 import { getAll } from "../store/models/characterSlice";
@@ -10,9 +11,10 @@ const CharactersPage: React.FC = () => {
   //estado inicial
   const { data } = useSelector((state: RootState) => state.charReducer);
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate();
   
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpen = (id:number) => {
+    navigate('/character/'+id)
   }
 
   const dispatch = useAppDispatch();
@@ -42,9 +44,7 @@ const CharactersPage: React.FC = () => {
                       </Typography>                    
                     </CardContent>
                     <CardActions>
-                      <Button onClick={handleOpen} size="small">Ver mais</Button>
-                      
-                      
+                      <Button onClick={()=>handleOpen(item.id)} size="small">Ver mais</Button>
                     </CardActions>
                   </Card>
                   <ModalMui id={item.id} open={open} setModal={setOpen}/>

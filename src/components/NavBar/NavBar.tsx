@@ -2,6 +2,7 @@ import {
 	AppBar,
 	Box,
 	Button,
+	Container,
 	Toolbar,
 	Typography,
 } from '@mui/material';
@@ -10,7 +11,7 @@ import React from 'react';
 const Navbar: React.FC = () => {
 	return (
 		<React.Fragment>
-			<Box sx={{ flexGrow: 1 }}>
+			<Container sx={{ flexGrow: 1 }}>
 				<AppBar position="fixed" color="secondary">
 					<Toolbar>
 						{/**cresce o elemento */}
@@ -22,7 +23,7 @@ const Navbar: React.FC = () => {
 						</Button>
 					</Toolbar>
 				</AppBar>
-			</Box>
+			</Container>
 		</React.Fragment>
 	);
 };
